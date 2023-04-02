@@ -2,61 +2,79 @@
 
 using namespace std;
 
-#define ll long long
+#define ll unsigned long long
 
-const int N = 1e6 + 1;
-vector<ll> primes;
+const int N = 1000001;
+int isPrime[N];
 
-int binSearch(int l, int r, int tar){
-   int mid;
+vector <ll> almPrimes;
 
-   while(l < r){
+int binSearch(ll tar){
+   int l = 0, r = almPrimes.size() - 1, mid, pos = -1;
+
+   while(l <= r){
       mid = (l + r) / 2;
 
-      if(primes[mid] < tar)
+      if(almPrimes[mid] <= tar){
+         pos = mid;
          l = mid + 1;
-      else if(primes[mid] > tar)
+      }
+      else
          r = mid - 1;
    }
+
+   return pos;
+}
+
+void genPrimes(){
+
+   for(int i = 2; i < N; i++)
+      isPrime[i] = 1;
    
-}
+   isPrime[0] = isPrime[1] = 0;
 
-void generatePrimes(){
-   bool isComposite[N];
-   isComposite[0] = isComposite[1] = 1;
+   for(int i = 2; i * i < N; i++){
+      if(isPrime[i] == 1){
+         int j = i * i;
 
-   for(ll i=2; i<N; i++){
-      if(!isComposite[i]){
-         for(ll j=i*i; j<N; j+=i)
-            isComposite[j] = 1;
+         while(j < N){
+            isPrime[j] = 0;
+            j += i;
+         }
       }
    }
 
-   for(ll i=2; i<N; i++){
-      if(!isComposite[i]){
-         for(int j=i*i; j<1000000000000L; j++)
-            primes.push_back(j);
+   for(int i = 2; i < N; i++){
+      if(isPrime[i]){
+         ll j = i * i;
+
+         while(j < 1000000000001){
+            almPrimes.push_back(j);
+            j *= i;
+         }
       }
    }
-   primes.push_back(1000000000000L);
 
-   sort(primes.begin(), primes.end());
-}
-
-void solve(){
-   generatePrimes();
-
-   ll low, high;
-   cin >> low >> high;
-
-
+   almPrimes.push_back(1000000000001);
+   sort(almPrimes.begin(), almPrimes.end());
 }
 
 int main(){
+   genPrimes();
+
+   // for(int i = 0; i < 10; i++)
+   //    cout << almPrimes[i] << ' ';
+
    int t;
    cin >> t;
 
    while(t--){
-      solve();
+      ll l, r;
+      cin >> l >> r;
+
+      int leftInd = binSearch(l);
+      int rightInd = binSearch(r);
+
+      cout << rightInd - leftInd << '\n';
    }
 }

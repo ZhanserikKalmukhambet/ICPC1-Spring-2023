@@ -22,6 +22,7 @@ int findPrimesCnt(int a, int b){
    for(int i=a; i<=b; i++)
       if(isPrime[i] == 1)
          cnt++;
+         
    return cnt;
 }
 

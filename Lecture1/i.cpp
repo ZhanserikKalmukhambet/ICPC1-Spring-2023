@@ -2,21 +2,22 @@
 
 using namespace std;
 
-int binPow(int a, int n){
+int binPow(int x, int n){
    if(n == 0)
       return 1;
 
-   if(n % 2 == 1)
-      return binPow(a, n-1) * a;
+   if(n % 2 == 0){
+      int temp = binPow(x, n / 2);
+      return temp * temp;
+   }
    else{
-      int temp = binPow(a, n/2);
-      return temp*temp;
+      return binPow(x, n - 1) * x;
    }
 }
 
 int main(){
-   int a, n;
-   cin >> a >> n;
+   int a, b;
+   cin >> a >> b;
 
-   cout << binPow(a, n);
+   cout << binPow(a, b);
 }
