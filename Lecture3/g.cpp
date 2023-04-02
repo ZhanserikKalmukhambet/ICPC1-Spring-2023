@@ -22,7 +22,8 @@ void genPartition(vector<int> a, int n, int tar, int ind, int sum, vector<int>& 
    for(int i=ind; i<n; i++){
       if(sum + a[i] <= tar){
          temp.push_back(a[i]);
-         genPartition(a, n, tar, i+1, sum + a[i], temp, res);
+
+         genPartition(a, n, tar, i + 1, sum + a[i], temp, res);
 
          temp.pop_back();
       }
@@ -37,11 +38,12 @@ int main(){
 
    while(cin >> tar >> n){
       vector<int> a(n);
-      for(int i=0; i<n; i++)
+
+      for(int i = 0; i < n; i++)
          cin >> a[i];
 
-      vector<vector<int>> res;
-      vector<int> temp;
+      vector < vector<int> > res;
+      vector <int> temp;
       genPartition(a, n, tar, 0, 0, temp, res);
 
       
@@ -51,9 +53,9 @@ int main(){
       }
       else{
          for(auto v: res){
-            for(int i=0; i<v.size(); i++){
+            for(int i = 0; i < v.size(); i++){
                cout << v[i];
-               if(i != v.size()-1)
+               if(i != v.size() - 1)
                   cout << '+';
             }
             cout << '\n';

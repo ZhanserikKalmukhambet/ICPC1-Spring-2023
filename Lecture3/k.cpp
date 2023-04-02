@@ -9,17 +9,18 @@ int main(){
    int fac = 1;
 
    int a[n];
-   for(int i=0; i<n; i++){
+   for(int i = 0; i < n; i++){
       cin >> a[i];
 
-      fac *= i+1;
+      fac *= i + 1;
    }
    fac /= n;
 
-   int inv[n-1];
-   for(int i=0; i<n-1; i++){
+   int inv[n - 1];
+   for(int i = 0; i < n - 1; i++){
       int cnt = 0;
-      for(int j=i+1; j<n; j++)
+
+      for(int j = i + 1; j < n; j++)
          if(a[i] > a[j])
             cnt++;
       
@@ -28,13 +29,13 @@ int main(){
 
    int order = 0;
    int temp = n - 1;
-   for(int i=0; i<n-1; i++){
+   for(int i = 0; i < n - 1; i++){
       order += inv[i] * fac;
 
       fac /= temp;
       temp--;
    }
 
-   cout << order+1;
+   cout << order + 1;
    return 0;
 }

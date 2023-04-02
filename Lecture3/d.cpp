@@ -15,6 +15,7 @@ void combination(int n, int k, int ind, vector<int>& temp){
 
       combination(n, k, i+1, temp);
 
+      // reset
       temp.pop_back();
    }
 }
