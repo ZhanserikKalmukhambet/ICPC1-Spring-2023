@@ -11,11 +11,12 @@ int main(){
 
    vector<vector<int>> a(n);
 
-   for(int i=0; i<n; i++){
-      int sz = i+1;
-      vector<int> temp(sz);
-      for(int j=0; j<sz; j++)
+   for(int i = 0; i < n; i++){
+      int sz = i + 1;
+      vector <int> temp(sz);
+      for(int j = 0; j < sz; j++)
          cin >> temp[j];
+         
       a[i] = temp;
    }
 

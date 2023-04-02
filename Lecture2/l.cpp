@@ -4,8 +4,6 @@
 
 using namespace std;
 
- 
-
 int n;
 
 int dp[5001];
