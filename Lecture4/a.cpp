@@ -25,7 +25,7 @@ int main(){
    sort(a, a + n);
 
    ll cnt = 0;
-   ll l = 0, r = n-1;
+   ll l = 0, r = n - 1;
 
    while(l <= r){
       if(a[l] + a[r] <= k){

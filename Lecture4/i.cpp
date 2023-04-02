@@ -9,11 +9,12 @@ void solve(){
    ll cash;
    cin >> n >> cash;
 
-   vector<pair<ll, ll>> a(n);
+   vector< pair<ll, ll> > a(n);
 
-   for(int i=0; i<n; i++)
+   for(int i = 0; i < n; i++)
       cin >> a[i].second;
-   for(int i=0; i<n; i++){
+
+   for(int i = 0; i < n; i++){
       ll x;
       cin >> x;
       a[i].first = abs(a[i].second - x);
@@ -22,7 +23,7 @@ void solve(){
    sort(a.begin(), a.end());
 
    int cnt = 0;
-   for(int i=0; i<n; i++){
+   for(int i = 0; i < n; i++){
       ll cost = a[i].second;
       ll diff = a[i].first;
 
