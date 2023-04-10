@@ -2,12 +2,14 @@
 
 using namespace std;
 
+#define ll long long
+
 const int sz = 1e6;
 
-int t_max[4 * sz];
-int t_min[4 * sz];
+ll t_max[4 * sz];
+ll t_min[4 * sz];
 
-void build(vector<int>& a, int L, int R, int tree_index=1){
+void build(vector<ll>& a, ll L, ll R, ll tree_index=1){
    if (L > R)
         return; 
 
@@ -17,7 +19,7 @@ void build(vector<int>& a, int L, int R, int tree_index=1){
        return; 
    } 
    
-   int middle = (L + R) / 2; 
+   ll middle = (L + R) / 2; 
 
    build(a, L, middle, tree_index * 2); 
    build(a, middle + 1, R, tree_index * 2 + 1);
@@ -26,42 +28,42 @@ void build(vector<int>& a, int L, int R, int tree_index=1){
    t_min[tree_index] = min(t_min[tree_index * 2], t_min[tree_index * 2 + 1]); 
 }
 
-int get_min(int L, int R, int l, int r, int tree_index=1){
+ll get_min(ll L, ll R, ll l, ll r, ll tree_index=1){
    if(L > r || R < l)
       return 1e9;
 
    if(l <= L && R <= r)
       return t_min[tree_index];
 
-   int mid = (L + R) / 2;
+   ll mid = (L + R) / 2;
 
-   int ans = min(get_min(L, mid, l, r, tree_index * 2), get_min(mid + 1, R, l, r, tree_index * 2 + 1));
+   ll ans = min(get_min(L, mid, l, r, tree_index * 2), get_min(mid + 1, R, l, r, tree_index * 2 + 1));
 
    return ans;
 }
 
-int get_max(int L, int R, int l, int r, int tree_index=1){
+ll get_max(ll L, ll R, ll l, ll r, ll tree_index=1){
    if(L > r || R < l)
       return (-1e9);
 
    if(l <= L && R <= r)
       return t_max[tree_index];
 
-   int mid = (L + R) / 2;
+   ll mid = (L + R) / 2;
 
-   int ans = max(get_max(L, mid, l, r, tree_index * 2), get_max(mid + 1, R, l, r, tree_index * 2 + 1));
+   ll ans = max(get_max(L, mid, l, r, tree_index * 2), get_max(mid + 1, R, l, r, tree_index * 2 + 1));
 
    return ans;
 }
 
-void update(int L, int R, int pos, int new_val, int tree_index=1){
+void update(ll L, ll R, ll pos, ll new_val, ll tree_index=1){
    if(L == R){
       t_max[tree_index] = new_val;
       t_min[tree_index] = new_val;
       return;
    }
 
-   int mid = (L + R) / 2;
+   ll mid = (L + R) / 2;
 
    if(pos <= mid)
       update(L, mid, pos, new_val, tree_index * 2);
@@ -73,35 +75,36 @@ void update(int L, int R, int pos, int new_val, int tree_index=1){
 }
 
 int main(){
+   ios::sync_with_stdio(0);
+   cin.tie(0);
+   cout.tie(0);
+
    // freopen("rvq.in", "r", stdin);
    // freopen("rvq.out", "w", stdout);
 
-   int n = 100100;
+   ll n = 100001;
 
-   vector <int> a(n);
+   vector <ll> a(n);
 
-   for(int i = 0; i < n; i++)
-      a[i] = ((i + 1) * (i + 1)) % 12345 + ((i + 1) * (i + 1) * (i + 1)) % 23456;
+   for(ll i = 0; i < n; i++)
+      a[i] = (i * i) % 12345 + (i * i * i) % 23456;
 
    build(a, 0, n - 1);
 
-   int q;
+   ll q;
    cin >> q;
    
    while(q--){
-      int l, r;
+      ll l, r;
       cin >> l >> r;
       
       if(l < 0){
          l = abs(l);
-         l--;
 
          update(0, n - 1, l, r);
       }
       else{
-         l--; r--;
-
-         cout << abs(get_max(0, n - 1, l, r) - get_min(0, n - 1, l, r)) << '\n';
+         cout << get_max(0, n - 1, l, r) - get_min(0, n - 1, l, r) << '\n';
       }
    }
 }
